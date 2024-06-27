@@ -5,9 +5,9 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://10.0.2.15:3306/hb_student_tracker</property>
-        <property name="hibernate.connection.username">hbstudentex</property>
-        <property name="hibernate.connection.password">hbstudent</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hb_student_tracker</property>
+        <property name="hibernate.connection.username">hbstudent</property>
+        <property name="hibernate.connection.password">P@ssw0rd</property>
         
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="hibernate.c3p0.min_size">5</property>
@@ -18,7 +18,10 @@
         
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        
+
+        <!-- Configure current session context class -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
         <!-- Echo all executed SQL to stdout -->
         <property name="hibernate.show_sql">true</property>
         
