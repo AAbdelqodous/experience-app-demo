@@ -9,6 +9,9 @@ import org.hibernate.cfg.Configuration;
 
 import com.elite.hb_student_tracker.entity.Student;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentService {
 
 	public static void main(String[] args) {
@@ -18,25 +21,43 @@ public class StudentService {
 										.buildSessionFactory();
 
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = null;
+		Transaction trx = null;
+		Session openedSession = null;
 		try {
-			Student student = new Student("Ahmed",  "Abdelqodous", "ahmed.abdelqodous@gmail.com");
-			tx = session.beginTransaction();
+			//create a new student
+			/*List<Student> students = new ArrayList<>();
+			students.add( new Student("Nihal",  "Eisa", "nihal@gmail.com"));
+			students.add( new Student("Mohamed",  "Ahmed", "mohamed@gmail.com"));
+			students.add( new Student("Assiya",  "Ahmed", "assiya@gmail.com"));
 
+			trx = session.beginTransaction();
+			for (Student student:students) {
+				session.save(student);
+			}
+			trx.commit();
+			System.out.println("Saved success..");*/
+
+
+			//get a student
+			/*Student student = new Student("Elsayed", "Abdelqodous", "elsayed@gmail.com");
+			trx = session.beginTransaction();
 			session.save(student);
+			trx.commit();
 
-			session.getTransaction().commit();
-			System.out.println("Saved success..");
-			
+			openedSession = sessionFactory.openSession();
+			Student rstudent = openedSession.get(Student.class, student.getId());
+			System.out.println(rstudent);*/
+
+
 		} catch (HibernateException e) {
-			if (tx != null) tx.rollback();
+			if (trx != null) trx.rollback();
 			e.printStackTrace();
 		} finally {
 			if (session != null) session.close();
+			if(openedSession != null) openedSession.close();
 		}
 
 		sessionFactory.close();
-
 	}
 
 }
