@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.elite.hb_student_tracker.entity.Student;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,14 @@ public class StudentService {
 		Transaction trx = null;
 		Session openedSession = null;
 		try {
+			trx = session.beginTransaction();
+
 			//create a new student
 			/*List<Student> students = new ArrayList<>();
 			students.add( new Student("Nihal",  "Eisa", "nihal@gmail.com"));
 			students.add( new Student("Mohamed",  "Ahmed", "mohamed@gmail.com"));
 			students.add( new Student("Assiya",  "Ahmed", "assiya@gmail.com"));
 
-			trx = session.beginTransaction();
 			for (Student student:students) {
 				session.save(student);
 			}
@@ -40,7 +42,6 @@ public class StudentService {
 
 			//get a student
 			/*Student student = new Student("Elsayed", "Abdelqodous", "elsayed@gmail.com");
-			trx = session.beginTransaction();
 			session.save(student);
 			trx.commit();
 
@@ -48,7 +49,35 @@ public class StudentService {
 			Student rstudent = openedSession.get(Student.class, student.getId());
 			System.out.println(rstudent);*/
 
+			//query student table
+			/*List<Student> students = session.createQuery("from Student").list();
+			for (Student student:students){
+				System.out.println(student);
+			}*/
+			//another approach
+			/*Query query = session.createQuery("from Student s WHERE s.lastName = 'Abdelqodous'" +
+					" OR s.email LIKE '%abdelqodous%'");
+			List <Student>resultList = query.getResultList();
+			for (Student student:resultList){
+				System.out.println(student);
+			}*/
 
+			//update student table
+			/*int studId = 1;
+			Student student = session.get(Student.class, studId);
+			student.setEmail("ml.ahmed1187@gmail.com");
+			trx.commit();*/
+			//another approach
+			/*session.createQuery("update Student s set s.email = 'nihal.eisa@gmail.com' " +
+					"where s.lastName = 'eisa'").executeUpdate();*/
+
+			//delete  a student
+			/*int studId = 6;
+			Student student = session.get(Student.class, studId);
+			session.delete(student);
+			trx.commit();*/
+			//another approach
+			session.createQuery("delete from Student where id = 6").executeUpdate();
 		} catch (HibernateException e) {
 			if (trx != null) trx.rollback();
 			e.printStackTrace();
