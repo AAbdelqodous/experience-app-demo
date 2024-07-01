@@ -1,6 +1,5 @@
 package com.elite.hb_student_tracker.service;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,10 +7,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.elite.hb_student_tracker.entity.Student;
-import org.hibernate.query.Query;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StudentService {
 
@@ -36,6 +31,7 @@ public class StudentService {
 			for (Student student:students) {
 				session.save(student);
 			}
+			trx = session.getTransaction();
 			trx.commit();
 			System.out.println("Saved success..");*/
 
@@ -43,6 +39,7 @@ public class StudentService {
 			//get a student
 			/*Student student = new Student("Elsayed", "Abdelqodous", "elsayed@gmail.com");
 			session.save(student);
+			trx = session.getTransaction();
 			trx.commit();
 
 			openedSession = sessionFactory.openSession();
@@ -66,6 +63,7 @@ public class StudentService {
 			/*int studId = 1;
 			Student student = session.get(Student.class, studId);
 			student.setEmail("ml.ahmed1187@gmail.com");
+			trx = session.getTransaction();
 			trx.commit();*/
 			//another approach
 			/*session.createQuery("update Student s set s.email = 'nihal.eisa@gmail.com' " +
@@ -75,6 +73,7 @@ public class StudentService {
 			/*int studId = 6;
 			Student student = session.get(Student.class, studId);
 			session.delete(student);
+			trx = session.getTransaction();
 			trx.commit();*/
 			//another approach
 			session.createQuery("delete from Student where id = 6").executeUpdate();
