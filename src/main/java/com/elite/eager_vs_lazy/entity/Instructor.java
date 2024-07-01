@@ -1,9 +1,11 @@
-package com.elite.hb_01_one_to_many.entity;
+package com.elite.eager_vs_lazy.entity;
 
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "instructor")
@@ -28,7 +30,7 @@ public class Instructor {
     private InstructorDetail instructorDetail;
 
     @OneToMany(
-
+            fetch = FetchType.LAZY,
             mappedBy = "instructor",
             cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Course> courses;
@@ -91,7 +93,7 @@ public class Instructor {
 
     public void add(Course course){
         if(courses == null){
-            courses = new ArrayList<>();
+            courses = new ArrayList<Course>();
         }
         courses.add(course);
         course.setInstructor(this);

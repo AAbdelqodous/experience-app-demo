@@ -1,4 +1,4 @@
-package com.elite.hb_01_one_to_many.entity;
+package com.elite.hb_01_one_to_many_uni.entity;
 
 import jakarta.persistence.*;
 
@@ -28,7 +28,7 @@ public class Instructor {
     private InstructorDetail instructorDetail;
 
     @OneToMany(
-
+            fetch = FetchType.LAZY,
             mappedBy = "instructor",
             cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Course> courses;
